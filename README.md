@@ -11,5 +11,5 @@ It is possible to deploy TuneMate by using the `npm start` command (see `package
 Alternatively, it is possible to deploy it by using Docker by using the following commands run in the `src` folder:
 ```
 docker build -t tunemate .
-docker run -d --name tunemate -p 8080:8080 tunemate: --restart always
+docker run -d --name tunemate -p 8080:8080 tunemate --restart always
 ```
