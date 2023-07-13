@@ -1,0 +1,1787 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "TuneMate: Backend API",
+    "description": "Social Network for Music",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Sign up for a new user",
+        "description": "It receives mandatory information about the user and inserts it into the DB",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "User data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Mario"
+                },
+                "surname": {
+                  "type": "string",
+                  "example": "Rossi"
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2000-02-02"
+                },
+                "genres": {
+                  "type": "array",
+                  "example": [
+                    "Lo-Fi",
+                    "House"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artists": {
+                  "type": "array",
+                  "example": [
+                    "Arctic Monkeys",
+                    "The Weeknd"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "email": {
+                  "type": "string",
+                  "example": "marior@mail.com"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "m4r10"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Antani13$"
+                }
+              },
+              "required": [
+                "name",
+                "surname",
+                "date",
+                "genres",
+                "artists",
+                "email",
+                "username",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The insertion into the db was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "New user created"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Any of the information is missing or the user already exists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing <field> or user already exists"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "A DB error different from \"an already existing user\" has occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get data of the user",
+        "description": "It returns all logged user\\'s data or username and ID by a given username\\'s substring",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The process was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "64a6978e96fbb79353e5028b"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Tiz"
+                },
+                "surname": {
+                  "type": "string",
+                  "example": "r"
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2005-05-06"
+                },
+                "genres": {
+                  "type": "array",
+                  "example": [
+                    "house"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artists": {
+                  "type": "array",
+                  "example": [
+                    "Arctic Monkeys"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "email": {
+                  "type": "string",
+                  "example": "t2@t.com"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "Tiz314"
+                },
+                "followedPlaylists": {
+                  "type": "array",
+                  "example": [
+                    "64a69dd496fbb79353e5028c",
+                    "64a995c839274f6dfc8b9c7b",
+                    "64ac546a505552c62cd465a6",
+                    "64a6978e96fbb79353e5028b",
+                    "64a992a539274f6dfc8b9c7a",
+                    "64abdd4b840c60494f9913d4",
+                    "64ad17595e2ffd91aec4d3cb"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "joinDate": {
+                  "type": "string",
+                  "example": "July 2023"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "base"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "If searched by username's substring, the user was not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User update",
+        "description": "It receives some new pieces of information about the user and it updates the DB. It is possible to: update basic user information; add a single playlist the user wants to follow; or remove a single playlist. One of these operations can be performed at a time. For example, if basic information is found in the body, only basic information updates will be performed.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "User data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Mario"
+                },
+                "surname": {
+                  "type": "string",
+                  "example": "Rossi"
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2000-02-02"
+                },
+                "genres": {
+                  "type": "array",
+                  "example": [
+                    "Lo-Fi",
+                    "House"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artists": {
+                  "type": "array",
+                  "example": [
+                    "Arctic Monkeys",
+                    "The Weeknd"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "email": {
+                  "type": "string",
+                  "example": "marior@mail.com"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "m4r10"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Antani13$"
+                },
+                "newPlaylistId": {
+                  "type": "string",
+                  "example": "64a6978e96fbb79353e5028b"
+                },
+                "oldPlaylistId": {
+                  "type": "string",
+                  "example": "64a6978e96fbb79353e5028b"
+                }
+              },
+              "required": [
+                "name",
+                "surname",
+                "date",
+                "genres",
+                "artists",
+                "email",
+                "username",
+                "password",
+                "newPlaylistId",
+                "oldPlaylistId"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The update process was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User updated"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Some fields are invalid or user already exists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid <field> or user already exists"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "A different DB error has occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User delete",
+        "description": "It receives the user\\'s ID from cookies and proceeds to delete user\\'s data and created playlists",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The cancellation process was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "success"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Another error has occurred, the user was not deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "failed"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "It returns if the user is logged",
+        "description": "It only returns the username to reduce the latency",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The request was successful. This means that the user can be logged in or not",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "<username> or Not logged in"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User login",
+        "description": "It receives user\\'s credentials and performs a login. It is possible to use the username or the email address + password",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "required": true,
+            "description": "User data. Name can be the username or the email address",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "m4r10"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Antani13$"
+                }
+              },
+              "required": [
+                "name",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The login process was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Any of the information is missing",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing login information"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong password",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Wrong password"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "The user does not exist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User does not exist"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User logout",
+        "description": "It clears the user\\'s cookie",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The logout process was successful"
+          }
+        }
+      }
+    },
+    "/genre": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Get reccomended genres",
+        "description": "It returns Spotify reccomended genres. It doesn\\'t required auth because it is also used during the sign up process",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "genres": {
+                  "type": "array",
+                  "example": [
+                    "acoustic",
+                    "afrobeat",
+                    "alt-rock",
+                    "alternative",
+                    "ambient",
+                    "anime",
+                    "black-metal",
+                    "bluegrass"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Track search",
+        "description": "It receives information about a song such as title, artist, genre, album and date of publication. It asks for results from the Spotify API and returns the results. At least a filter is mandatory.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Track data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Do I Wanna Know?"
+                },
+                "artist": {
+                  "type": "string",
+                  "example": "Arctic Monkeys"
+                },
+                "album": {
+                  "type": "string",
+                  "example": "AM"
+                },
+                "genre": {
+                  "type": "string",
+                  "example": "Rock"
+                },
+                "startYear": {
+                  "type": "string",
+                  "example": "2000"
+                },
+                "endYear": {
+                  "type": "string",
+                  "example": "2020"
+                }
+              },
+              "required": [
+                "name",
+                "artist",
+                "album",
+                "genre",
+                "startYear",
+                "endYear"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful"
+          },
+          "400": {
+            "description": "At leat a filter is mandatory",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "You must specify at least a filter"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Artist search by name",
+        "description": "It returns a list of 10 artists based on the name given",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Artist name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful"
+          }
+        }
+      }
+    },
+    "/artist/{id}": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Artist search by ID",
+        "description": "It returns an artist based on the given ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Artist ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful"
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlist": {
+      "get": {
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Get personal and followed playlists",
+        "description": "It returns a list of personal playlists and public ones that the user follows. It depends on the JWT token passed through the request header",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "privatePlaylists": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "64ac546a505552c62cd465a6"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "First playlist!"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "My first playlist"
+                      },
+                      "tag": {
+                        "type": "array",
+                        "example": [
+                          "#leisure"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "author": {
+                        "type": "string",
+                        "example": "64ac53b2505552c62cd465a5"
+                      },
+                      "songs": {
+                        "type": "array",
+                        "example": [
+                          "5FVd6KXrgO9B3JPmC8OPst",
+                          "58ge6dfP91o9oXMzq3XkIS"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "isPublic": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                },
+                "followedPlaylists": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "64ad17595e2ffd91aec4d3cb"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "prova"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "prova"
+                      },
+                      "tag": {
+                        "type": "array",
+                        "example": [
+                          "#d"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "author": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "64a6978e96fbb79353e5028b"
+                          },
+                          "username": {
+                            "type": "string",
+                            "example": "Tiz314"
+                          }
+                        }
+                      },
+                      "songs": {
+                        "type": "array",
+                        "example": [
+                          "0Ymjv0OJeIIPXr6s9wi3iW",
+                          "1R0a2iXumgCiFb7HEZ7gUE"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "isPublic": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "A different DB error has occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Create a new playlist",
+        "description": "It receives the necessary information to create a new playlist linked to the logged user",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Playlist information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Coding playlist"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Songs to code to"
+                },
+                "tag": {
+                  "type": "array",
+                  "example": [
+                    "#coding",
+                    "#studying"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "description",
+                "tag"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "New playlist created"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Some mandatory information is missing",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing <field>"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "A different DB error has occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlist/{id}": {
+      "get": {
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Get a playlist by ID",
+        "description": "It returns a playlist\\'s information based on the given ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Playlist ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "64ac546a505552c62cd465a6"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "First playlist!"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "My first playlist"
+                },
+                "tag": {
+                  "type": "array",
+                  "example": [
+                    "#leisure"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "author": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "64ac53b2505552c62cd465a5"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "m4r10"
+                    }
+                  }
+                },
+                "songs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "album": {
+                        "type": "object",
+                        "properties": {
+                          "album_type": {
+                            "type": "string",
+                            "example": "album"
+                          },
+                          "artists": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "external_urls": {
+                                  "type": "object",
+                                  "properties": {
+                                    "spotify": {
+                                      "type": "string",
+                                      "example": "https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH"
+                                    }
+                                  }
+                                },
+                                "href": {
+                                  "type": "string",
+                                  "example": "https://api.spotify.com/v1/artists/7Ln80lUS6He07XvHI8qqHH"
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "example": "7Ln80lUS6He07XvHI8qqHH"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "Arctic Monkeys"
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "example": "artist"
+                                },
+                                "uri": {
+                                  "type": "string",
+                                  "example": "spotify:artist:7Ln80lUS6He07XvHI8qqHH"
+                                }
+                              }
+                            }
+                          },
+                          "available_markets": {
+                            "type": "array",
+                            "example": [
+                              "CA",
+                              "US"
+                            ],
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "example": "https://open.spotify.com/album/6rsQnwaoJHxXJRCDBPkBRw"
+                              }
+                            }
+                          },
+                          "href": {
+                            "type": "string",
+                            "example": "https://api.spotify.com/v1/albums/6rsQnwaoJHxXJRCDBPkBRw"
+                          },
+                          "id": {
+                            "type": "string",
+                            "example": "6rsQnwaoJHxXJRCDBPkBRw"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "height": {
+                                  "type": "number",
+                                  "example": 64
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "example": "https://i.scdn.co/image/ab67616d000048510c8ac83035e9588e8ad34b90"
+                                },
+                                "width": {
+                                  "type": "number",
+                                  "example": 64
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Favourite Worst Nightmare (Standard Version)"
+                          },
+                          "release_date": {
+                            "type": "string",
+                            "example": "2007-04-24"
+                          },
+                          "release_date_precision": {
+                            "type": "string",
+                            "example": "day"
+                          },
+                          "total_tracks": {
+                            "type": "number",
+                            "example": 12
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "album"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "example": "spotify:album:6rsQnwaoJHxXJRCDBPkBRw"
+                          }
+                        }
+                      },
+                      "artists": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "external_urls": {
+                              "type": "object",
+                              "properties": {
+                                "spotify": {
+                                  "type": "string",
+                                  "example": "https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH"
+                                }
+                              }
+                            },
+                            "href": {
+                              "type": "string",
+                              "example": "https://api.spotify.com/v1/artists/7Ln80lUS6He07XvHI8qqHH"
+                            },
+                            "id": {
+                              "type": "string",
+                              "example": "7Ln80lUS6He07XvHI8qqHH"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Arctic Monkeys"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "artist"
+                            },
+                            "uri": {
+                              "type": "string",
+                              "example": "spotify:artist:7Ln80lUS6He07XvHI8qqHH"
+                            }
+                          }
+                        }
+                      },
+                      "available_markets": {
+                        "type": "array",
+                        "example": [
+                          "CA",
+                          "US"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "disc_number": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "duration_ms": {
+                        "type": "number",
+                        "example": 253586
+                      },
+                      "explicit": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "external_ids": {
+                        "type": "object",
+                        "properties": {
+                          "isrc": {
+                            "type": "string",
+                            "example": "GBCEL0700074"
+                          }
+                        }
+                      },
+                      "external_urls": {
+                        "type": "object",
+                        "properties": {
+                          "spotify": {
+                            "type": "string",
+                            "example": "https://open.spotify.com/track/58ge6dfP91o9oXMzq3XkIS"
+                          }
+                        }
+                      },
+                      "href": {
+                        "type": "string",
+                        "example": "https://api.spotify.com/v1/tracks/58ge6dfP91o9oXMzq3XkIS"
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "58ge6dfP91o9oXMzq3XkIS"
+                      },
+                      "is_local": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "505"
+                      },
+                      "popularity": {
+                        "type": "number",
+                        "example": 83
+                      },
+                      "preview_url": {
+                        "type": "string",
+                        "example": "https://p.scdn.co/mp3-preview/24ad19af2d5feeeb0048bff59b4096960b415848?cid=bf61576227ef4560a75f0bf45ca0c6f3"
+                      },
+                      "track_number": {
+                        "type": "number",
+                        "example": 12
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "track"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "example": "spotify:track:58ge6dfP91o9oXMzq3XkIS"
+                      }
+                    }
+                  }
+                },
+                "isPublic": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "followers": {
+                  "type": "number",
+                  "example": 1
+                },
+                "loggedUser": {
+                  "type": "string",
+                  "example": "64ac53b2505552c62cd465a5"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid playlist ID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid ID"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Playlist not found!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Playlist update",
+        "description": "It updates a playlist based on the ID given. It is possible to update the playlist\\'s basic information (including the author of the playlist); add a new song; or remove an old song. As for the user update, it is possible to perform one of the three actions at a time. The tracklist field accepts an array of strings which will replace the playlist tracklist. It is used to update the tracklist order.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Playlist ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Playlist data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Coding playlist"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Songs to code to"
+                },
+                "tag": {
+                  "type": "array",
+                  "example": [
+                    "#coding",
+                    "#studying"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "isPublic": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "newOwner": {
+                  "type": "string",
+                  "example": "64a6978e96fbb79353e5028b"
+                },
+                "newSongId": {
+                  "type": "string",
+                  "example": "58ge6dfP91o9oXMzq3XkIS"
+                },
+                "oldSongId": {
+                  "type": "string",
+                  "example": "58ge6dfP91o9oXMzq3XkIS"
+                },
+                "tracklist": {
+                  "type": "array",
+                  "example": [
+                    "58ge6dfP91o9oXMzq3XkIS"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "description",
+                "tag",
+                "isPublic",
+                "newOwner",
+                "newSongId",
+                "oldSongId",
+                "tracklist"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Playlist updated"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Any input field is invalid. The message content depends on the field",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "<field> is invalid"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "When adding or removing a song, the given song ID is invalid",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Song not found!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "A different DB error has occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Playlist delete",
+        "description": "It deletes the playlist from the DB whose ID is passed",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Playlist ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "success"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "The given id is invalid",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "failed"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "A different DB error has occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pubplaylist": {
+      "get": {
+        "tags": [
+          "Playlist"
+        ],
+        "summary": "Get public playlists",
+        "description": "It returns all the public playlists stored in the DB with the possibility of applying filters to the search such as names, tags and songs added to playlists",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Playlist name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Playlist tags",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tracks",
+            "in": "query",
+            "description": "Playlist tracks (id1,id2...)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "64ac546a505552c62cd465a6"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "First playlist!"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "My first playlist"
+                  },
+                  "tag": {
+                    "type": "array",
+                    "example": [
+                      "#leisure"
+                    ],
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "author": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "64ac53b2505552c62cd465a5"
+                      },
+                      "username": {
+                        "type": "string",
+                        "example": "m4r10"
+                      }
+                    }
+                  },
+                  "songs": {
+                    "type": "array",
+                    "example": [
+                      "5FVd6KXrgO9B3JPmC8OPst",
+                      "58ge6dfP91o9oXMzq3XkIS"
+                    ],
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isPublic": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "followed": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login required"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "No playlist matches filters",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Playlists not found!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/up": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Server status check",
+        "description": "If a response is received, the server is up and running, but since it\\'s a teapot it can\\'t brew coffee",
+        "parameters": [],
+        "responses": {
+          "418": {
+            "description": "I'm a teapot"
+          }
+        }
+      }
+    }
+  }
+}

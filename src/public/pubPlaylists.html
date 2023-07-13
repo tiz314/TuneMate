@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link href="./assets/styles/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/imgs/icons/icon.png">
+    <title>TuneMate | Public playlists</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100"
+    onload="isLoggedIn().then(res => { if(res.username == undefined) location.replace('./index.html')} )">
+
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="navbar">
+        <div class="container-fluid" id="navbar">
+        </div>
+    </nav>
+
+    <div class="container-fluid text-center" id="pubPlaylistMain">
+        <div class="row">
+            <h1><span class="highlight">Search</span> for public playlists</h1>
+        </div>
+        <div class="row d-flex justify-content-center mt-4 align-items-center">
+            <div class="col-auto mt-2">
+                <input type="text" class="form-control" id="playlistNameTextField" placeholder="Playlist name">
+            </div>
+            <div class="col-auto mt-2">
+                <button type="submit" class="btn mainButton" onclick="searchPublicPlaylists()">Search</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <div class="alert alert-danger mt-3 d-none" role="alert" id="pubPlaylistErrorAlert">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <h5><span class="highlight">Filter</span> by:</h5>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-auto mt-2">
+                <input type="text" id="tags" class="form-control me-3" placeholder="#Coding">
+            </div>
+            <div class="col-auto mt-2">
+                <button class="btn mainButton" type="button" onclick="addTag()">
+                    Add
+                </button>
+            </div>
+            <div class="col-auto mt-2">
+                <input type="text" class="form-control" id="trackTextField" placeholder="Track title">
+            </div>
+            <div class="col-auto mt-2">
+                <button class="btn mainButton" onclick="fillTrackList()" id="fillTrackListButton">
+                    Update
+                </button>
+            </div>
+            <div class="col-auto mt-2">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle mainButton" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Tracks
+                    </button>
+                    <ul class="dropdown-menu" id="tracksDropdown">
+                        <li><button class="btn dropdown-item">Nothing to show</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex flex-column mt-3" id="chosenTagsList">
+            </div>
+            <div class="col d-flex flex-column mt-3" id="chosenTracksList">
+            </div>
+        </div>
+        <div class="spinner-border loadingSpinner d-none" role="status" id="pubPlaylistLoadingSpinner">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <div class="alert alert-danger mt-3 d-none" role="alert" id="playlistErrorAlert">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 p-4 d-flex justify-content-center" id="playlistsContainer">
+            <div class="col col-auto mt-2 pubPlaylistCard d-none">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title highlight"></h5>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"></p>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/scripts/tags.js"></script>
+    <script src="./assets/scripts/login.js"></script>
+    <script src="./assets/scripts/pubPlaylist.js"></script>
+    <script src="./assets/scripts/nav.js"></script>
+    <script src="./assets/scripts/footer.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

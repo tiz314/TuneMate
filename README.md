@@ -5,6 +5,10 @@ A Social Network for Music
 
 TuneMate is an Express.js-based social media to search for songs, add them to personal playlists and share them with other people!
 
+## Live demo
+
+A live demo is available ![here](https://tunemate.tiz314.it)
+
 ## How to deploy
 It is possible to deploy TuneMate by using the `npm start` command (see `package.json`). 
 

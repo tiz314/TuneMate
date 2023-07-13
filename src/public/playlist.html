@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link href="./assets/styles/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/imgs/icons/icon.png">
+    <title>TuneMate | </title>
+</head>
+
+<body class="d-flex flex-column min-vh-100" onload="loadPlaylistData()">
+
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="navbar">
+        <div class="container-fluid" id="navbar">
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="playlistMain">
+        <div class="row justify-content-center mt-3">
+            <div class="col-auto">
+                <div class="alert alert-danger d-none" role="alert" id="playlistErrorAlert">
+                </div>
+            </div>
+        </div>
+        <div class="row p-5">
+            <div class="row justify-content-center">
+                <div class="spinner-border loadingSpinner" role="status">
+                </div>
+            </div>
+            <div class="col">
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <h1 id="playlistName" class="highlight"></h1>
+                        <h3 id="playlistDescription"></h3>
+                        <h6 id="playlistTags"></h6>
+                    </div>
+                    <div class="col text-center">
+                        <button class="btn mainButton d-none" id="playlistEditModalButton" data-bs-toggle="modal"
+                            data-bs-target="#playlistEditModal" onclick="playlistEdit()">
+                            <!-- user edit modal trigger -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                            </svg>
+                            Edit
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <h6 id="playlistInfo"></h6>
+                    <h6 id="playlistFollowers"></h6>
+                    <h6 id="playlistAuthor"></h6>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <h6 class="badge bg-secondary" id="playlistVisibility"></h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto" id="followingButtonContainer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-auto p-5 d-none" id="addSongToPlaylistButton">
+                <a class="btn mainButton" href="./songs.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus" viewBox="0 0 16 16">
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                    Add
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-5 d-flex justify-content-end">
+                <button class="btn mainButton d-none" id="applyChangeToOrder" onclick="updateSongsOrder()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-check2" viewBox="0 0 16 16">
+                        <path
+                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                    Apply changes!
+                </button>
+            </div>
+        </div>
+        <div class="row p-5 d-none" id="playlistUserContent">
+            <div class="songContainer d-none">
+                <div class="row row-cols-1 row-cols-md-4 mt-2 p-2 playlistSong">
+                    <div class="col-auto d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-grip-vertical d-none" viewBox="0 0 16 16">
+                            <path
+                                d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                    </div>
+                    <div class="col-md-2 col-lg-1 d-flex align-items-center">
+                        <img src="" class="img-fluid">
+                    </div>
+                    <div class="col">
+                        <h4></h4>
+                        <h5></h5>
+                        <h6></h6>
+                        <h6></h6>
+                    </div>
+                    <div class="col d-flex me-auto align-items-center">
+                        <audio controls class="ratio p-1">
+                            <source src="" />
+                        </audio>
+                    </div>
+                    <div class="col d-flex ps-4 align-items-center pe-5">
+                        <div class="row deleteSong">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playlist edit modal -->
+        <div class="modal fade" id="playlistEditModal" tabindex="-1" aria-labelledby="playlistEditModal"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Edit playlist</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-4">
+                            <div class="col">
+                                <input type="text" id="editName" class="form-control" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="col">
+                                <input type="text" id="editDescription" class="form-control" placeholder="Description">
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-sm-2">
+                            <div class="col pt-1">
+                                <input type="text" id="tags" class="form-control me-3" placeholder="#Coding">
+                            </div>
+                            <div class="col pt-1">
+                                <button class="btn mainButton" type="button" onclick="addTag()">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-3" id="chosenTagsList">
+                        </div>
+                        <div class="form-check form-switch mb-4">
+                            <label class="form-check-label" for="isPublicSwitch">Public playlist</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="isPublicSwitch">
+                        </div>
+                        <div class="alert alert-danger d-none" role="alert" id="editErrorAlert">
+                        </div>
+                        <div class="mb-4" id="changeOwnerContainer">
+                            <div class="col">
+                                <p>Change owner</p>
+                                <div class="mb-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" id="users" class="form-control" placeholder="Username">
+                                            <p class="d-none" id="userId"></p>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn mainButton" onclick="fillUserChangeOwner()">
+                                                Search user
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="confirmPlaylistDeleteContainer">
+                            <button type="button" class="btn mainButton" id="deleteUserButton"
+                                onclick="confirmPlaylistDelete()">Delete playlist</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn mainButton" onclick="updatePlaylist()">Apply changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/scripts/tags.js"></script>
+    <script src="./assets/scripts/login.js"></script>
+    <script src="./assets/scripts/utils.js"></script>
+    <script src="./assets/scripts/playlist.js"></script>
+    <script src="./assets/scripts/nav.js"></script>
+    <script src="./assets/scripts/footer.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

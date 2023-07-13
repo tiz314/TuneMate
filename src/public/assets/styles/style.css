@@ -1,0 +1,578 @@
+/*
+Palette:
+- #D2E2DF
+- #1EFBBD
+- #96EBD4
+- #252525
+- #202020
+*/
+
+
+* {
+    color: #D2E2DF;
+    font-family: 'PT Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.1s;
+}
+
+.a:hover {
+    color: #96EBD4;
+    transition: 0.3s;
+}
+
+body {
+    background-color: #252525;
+}
+
+.navbar {
+    background-color: #202020;
+}
+
+.highlight {
+    color: #43ECBC;
+    font-weight: bold;
+}
+
+.loadingSpinner {
+    color: #43ECBC;
+}
+
+.dropdown-item {
+    color: #D2E2DF;
+}
+
+
+/* --- Homepage --- */
+
+#landingMain {
+    background-image: url("../imgs/home_background.webp");
+    background-size: cover;
+    background-position: center;
+}
+
+#landingMain div {
+    height: 70vh;
+}
+
+#landingMain h1 {
+    font-size: 4rem;
+}
+
+#landingMain h1,
+#landingMain h4 {
+    /* changing the color because of the wallpaper */
+    color: #252525;
+}
+
+#landingMain .mainButton {
+    /* only for homepage spacing */
+    margin-top: 7vw;
+    padding: 0.7rem 1rem 0.7rem 1rem;
+}
+
+.mainButton {
+    /* General rule, then overridden for special occasions */
+    font-size: 1vw;
+    background-color: #252525;
+    color: #96EBD4;
+    border: solid #96EBD4 1px;
+    border-radius: 4px;
+    transition: 0.1s;
+    padding: 0.6vw 1vw 0.6vw 1vw;
+}
+
+.mainButton:hover {
+    background-color: #43ECBC;
+    color: #252525;
+    transition: 0.3s;
+    border-color: #252525;
+}
+
+.descriptionRow {
+    margin-top: 4vw;
+    margin-bottom: 6vw;
+}
+
+.homeImage {
+    border-radius: 1vw;
+}
+
+.dropdown ul {
+    background-color: #252525;
+}
+
+
+
+
+/* --- Login and Sign Up --- */
+
+
+#loginSignupFormDiv {
+    margin-top: 4rem;
+    padding: 4rem;
+    border-radius: 5px;
+    background-color: #202020;
+    width: 30rem;
+}
+
+#loginSignupFormDiv a {
+    transition: 0.1s;
+}
+
+#loginSignupFormDiv a:hover {
+    color: #D2E2DF;
+    transition: 0.3s;
+}
+
+.alert {
+    color: black;
+}
+
+#genreItem button {
+    color: #D2E2DF;
+}
+
+
+
+
+
+
+
+
+
+/* --- Songs --- */
+
+#songMain {
+    margin-top: 10vw;
+}
+
+#songMain h1 {
+    font-size: 4vw;
+}
+
+#songMain h5 {
+    font-size: 1vw;
+}
+
+
+#songTextField {
+    border-radius: 4px;
+    font-size: 1.2rem;
+    border: solid #252525 1px;
+    color: #252525;
+}
+
+
+.songCard .card {
+    width: 18rem;
+    background-color: #202020;
+}
+
+
+#addedSongToast div {
+    background-color: #252525;
+    border: solid #96EBD4 1px;
+    color: #96EBD4;
+    border-radius: 4px;
+}
+
+
+
+
+/* --- Profile --- */
+
+#profileUserContent {
+    background-color: #202020;
+}
+
+#deleteUserButton {
+    color: #e23b3b;
+    border: solid #e23b3b 1px;
+}
+
+#deleteUserButton:hover {
+    background-color: #e23b3b;
+    color: #252525;
+    transition: 0.3s;
+    border-color: #252525;
+}
+
+.playlistCard .card {
+    width: 18rem;
+    background-color: #202020;
+    border: solid #43ECBC 1px;
+    transition: 0.1s;
+}
+
+.playlistCard .card:hover {
+    background-color: #43ECBC;
+    transition: 0.3s;
+}
+
+.playlistCard .card:hover h5,
+.playlistCard .card:hover p {
+    color: #202020;
+}
+
+
+#userEditModal h1 {
+    font-size: 1.5rem;
+}
+
+
+
+
+
+/* --- Playlist details --- */
+
+#playlistMain .mainButton {
+    font-size: 1rem;
+}
+
+#deletePlaylistButton,
+.deleteSong button,
+#changeOwnerContainer button {
+    color: #e23b3b;
+    border: solid #e23b3b 1px;
+}
+
+#deletePlaylistButton:hover,
+.deleteSong button:hover,
+#changeOwnerContainer button:hover {
+    background-color: #e23b3b;
+    color: #252525;
+    transition: 0.3s;
+    border-color: #252525;
+}
+
+#playlistUserContent {
+    background-color: #202020;
+}
+
+.playlistSong {
+    border: solid #43ECBC 1px;
+    border-radius: 4px;
+}
+
+#changeOwnerContainer p {
+    color: #e23b3b;
+}
+
+
+
+/* --- Public playlists --- */
+
+#pubPlaylistMain {
+    margin-top: 10vw;
+}
+
+.pubPlaylistCard .card {
+    width: 18rem;
+    background-color: #202020;
+    border: solid #202020 1px;
+    border-radius: 4px;
+}
+
+
+
+
+
+/* --- Responsiveness code --- */
+
+@media screen and (max-width: 1920px) {
+    /* everything under hd display */
+
+    /* setting everything back to rem unit */
+
+
+    #landingMain .mainButton,
+    #landingMainBottom .mainButton {
+        margin-top: 7rem;
+    }
+
+    .mainButton {
+        padding: 0.4rem;
+        /* switching from vw for smaller displays */
+        font-size: 1rem;
+    }
+
+    #mainDescription h3,
+    #mainDescription h5 {
+        /* left spacing in description for medium displays */
+        padding-left: 4rem;
+    }
+
+    #mainDescription h3 {
+        /* changing font size for home description */
+        font-size: 3rem;
+    }
+
+    #mainDescription h5 {
+        /* styling for subtitle in description */
+        padding-top: 2rem;
+        font-size: 1.5rem;
+    }
+
+    .descriptionRow {
+        /* more spacing between rows in description */
+        margin-top: 4rem;
+        margin-bottom: 6rem;
+    }
+
+
+    #loginSignupFormDiv {
+        margin-top: 4rem;
+    }
+
+    #songMain h1,
+    #pubPlaylistMain h1 {
+        font-size: 2.5rem;
+    }
+
+    #songMain h5,
+    #pubPlaylistMain h5 {
+        font-size: 1.5rem;
+    }
+
+    #songTextField {
+        height: 2.5rem;
+    }
+
+
+
+}
+
+@media screen and (min-width: 1921px) {
+    /* everything bigger than hd display */
+
+    h1 {
+        font-size: 3vw;
+    }
+
+    h2 {
+        font-size: 2.5vw;
+    }
+
+    h3 {
+        font-size: 2vw;
+    }
+
+    h4 {
+        font-size: 1.5vw;
+    }
+
+    h5 {
+        font-size: 1.3vw;
+    }
+
+    h6 {
+        font-size: 1vw;
+    }
+
+    #landingMain h1 {
+        font-size: 4vw;
+    }
+
+    #loginSignupFormDiv .mainButton {
+        /* resizing mainbutton for login and signup */
+        font-size: 2rem;
+    }
+
+    #landingMain .mainButton {
+        /* Preserving mainButton size on index */
+        padding: 0.6vw 1vw 0.6vw 1vw;
+    }
+
+    .mainButton {
+        /* resizing mainbutton for login and signup */
+        padding: 0.2vw 1vw 0.2vw 1vw;
+    }
+
+    #navbar,
+    #navbar .highlight {
+        font-size: 2.3rem;
+    }
+
+    #dropdownMenu {
+        font-size: 1vw;
+    }
+
+    #navbar {
+        height: 6rem;
+    }
+
+    #mainDescription h3,
+    #mainDescription h5 {
+        padding-left: 4vw;
+    }
+
+    #mainDescription h5 {
+        padding-top: 1vw;
+    }
+
+    footer {
+        font-size: 0.8vw;
+    }
+
+    #loginMain {
+        min-height: 90vh;
+    }
+
+    #loginSignupFormDiv {
+        width: 20vw;
+    }
+
+    #loginMain h3 {
+        font-size: 1.2vw;
+    }
+
+    label {
+        font-size: 0.7vw;
+    }
+
+    #loginMain p,
+    #loginMain button {
+        font-size: 1vw;
+    }
+
+    #loginMain input,
+    #songMain input,
+    #songMain button,
+    #pubPlaylistMain input,
+    #profileMain input,
+    #userEditModal button,
+    #playlistEditModal button,
+    #newPlaylistModal button,
+    #pubPlaylistMain button,
+    #playlistVisibility,
+    #playlistMain .mainButton {
+        font-size: 0.8vw;
+        border-radius: 10px;
+    }
+
+    #playlistVisibility {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+
+    .input-group span {
+        font-size: 0.7vw;
+    }
+
+    .songCard p {
+        font-size: 0.8vw;
+    }
+
+    .songCard {
+        margin: 5rem;
+    }
+
+    .songCard,
+    .songCard .card {
+        min-width: 30rem;
+    }
+
+
+    #profileMain {
+        /* Resizing distance between content and navbar on profile page */
+        padding-top: 4rem;
+    }
+
+    #profileMain h6 {
+        /* Resizing distance between Name/surname and joined text */
+        margin-top: 3rem;
+    }
+
+    .modal-content {
+        /* To resize the entire modal for a bigger screen */
+        width: 40rem;
+    }
+
+    #userEditModal h1,
+    #newPlaylistModal h1 {
+        /* Resizing edit user and new pl modal title */
+        font-size: 0.8vw;
+    }
+
+    #playlistMain {
+        /* Resizing padding of playlist page content */
+        padding: 4rem;
+    }
+
+    .pubPlaylistCard .card a {
+        /* To adjust the "find out more" link on pub playlist cards */
+        font-size: 1.7rem;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    /* everything under md breakpoint */
+
+    #mainDescription h3,
+    #mainDescription h5 {
+        /* resetting padding for centered layout of the description */
+        padding-left: 0;
+    }
+
+    #mainDescription {
+        /* centering the description content */
+        text-align: center;
+    }
+
+
+    .playlistSong h4 {
+        /* Setting margin for song title when mobile layout is used */
+        margin-top: 2rem;
+    }
+
+    .playlistSong audio {
+        /* Setting margin for song title when mobile layout is used */
+        margin-bottom: 1rem;
+    }
+
+    .bi-grip-vertical {
+        /* To hide drag&drop icon on mobile devices */
+        display: none;
+    }
+
+    #personalPlaylistsContainer,
+    #playlistFollowingContainer {
+        /* To center playlists cards on mobile view */
+        justify-content: center;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 575px) and (min-width: 374px) {
+    /* only for sm breakpoint */
+
+    .homeImage {
+        /* to fix a too small space between images and description in the homepage */
+        margin-top: 2vw;
+        margin-bottom: 2rem;
+    }
+
+
+}
+
+
+@media screen and (max-width: 767px) and (min-width: 576px) {
+    /* only for md breakpoint */
+
+    #mainDescription h3 {
+        /* spacing between text and images on md displays */
+        padding-top: 4rem;
+    }
+
+    #mainDescription h5 {
+        padding-bottom: 4vw;
+    }
+}

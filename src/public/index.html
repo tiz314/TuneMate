@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link href="./assets/styles/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/imgs/icons/icon.png">
+    <title>TuneMate | Home</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100"> <!--in order to put the footer at the bottom of the page -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid" id="navbar">
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="landingMain">
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <!-- flex-column to put d-flex elements in column -->
+            <h1>TuneMate</h1>
+            <h4>Social Network for Music</h4>
+            <a href="./login.html" class="mainButton">Start today</a>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="mainDescription">
+        <!-- Live demo only!!! -->
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-5">
+                <div class="accordion" id="demoAlert">
+                    <div class="accordion-item" style="color: #D2E2DF; background-color: #252525;">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Live Demo - Readme!
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show"
+                            data-bs-parent="#demoAlert">
+                            <div class="accordion-body">
+                                This is the live demo of TuneMate. It was hosted using Cloudflare technology. Because of
+                                this, the proxy might make extra requests (normally not made by a self-hosted solution)
+                                that could cause unusual responses!
+                                If these errors are ignored, this demo still has full functionality and can be compared
+                                to the GitHub and uploaded version!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ----------------- -->
+        <div class="row row-cols-1 row-cols-md-2 mt-5 pt-5 descriptionRow" data-aos="fade-up">
+
+            <div class="col">
+                <div class="row">
+                    <h3>Search for <span class="highlight">songs</span></h3>
+                </div>
+                <div class="row">
+                    <h5>By title, author and genre</h5>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <img src="./assets/imgs/vinyl.webp" class="img-fluid homeImage" alt="vinyl">
+            </div>
+
+        </div>
+
+        <div class="row row-cols-1 mt-4 row-cols-md-2 descriptionRow" data-aos="fade-up">
+
+            <div class="col d-flex justify-content-center">
+                <img src="./assets/imgs/guitar.webp" class="img-fluid homeImage" alt="guitar">
+            </div>
+            <div class="col">
+                <div class="row">
+                    <h3>Create <span class="highlight">playlists</span></h3>
+                </div>
+                <div class="row">
+                    <h5>And add your favourite tracks</h5>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row row-cols-1 mt-4 row-cols-md-2 descriptionRow" data-aos="fade-up">
+
+            <div class="col">
+                <div class="row">
+                    <h3>Make them <span class="highlight">public</span></h3>
+                </div>
+                <div class="row">
+                    <h5>And share your playlists!</h5>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <img src="./assets/imgs/group.webp" class="img-fluid homeImage" alt="group">
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center flex-column mb-5" id="landingMainBottom">
+            <a href="./login.html" class="mainButton">Start today</a>
+        </div>
+
+    </div>
+    <script src="./assets/scripts/login.js"></script>
+    <script src="./assets/scripts/nav.js"></script>
+    <script src="./assets/scripts/footer.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init()</script>
+
+    <script>
+        isLoggedIn().then(res => { if (res.username != undefined) for (let i of document.getElementsByClassName("mainButton")) i.href = "./profile.html" })
+    </script>
+
+</body>
+
+</html>

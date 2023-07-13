@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link href="./assets/styles/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/imgs/icons/icon.png">
+    <title>TuneMate | Songs</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100"
+    onload="isLoggedIn().then(res => { if(res.username == undefined) location.replace('./index.html')} )">
+
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="navbar">
+        <div class="container-fluid" id="navbar">
+        </div>
+    </nav>
+
+    <div class="container-fluid text-center" id="songMain">
+        <div class="row">
+            <h1><span class="highlight">Search</span> for a song</h1>
+        </div>
+        <div class="row d-flex justify-content-center mt-5 align-items-center">
+            <div class="col-auto">
+                <input type="text" class="form-control" id="songTextField" placeholder="Do I Wanna Know?">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn mainButton" onclick="searchSong()">Search</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <div class="alert alert-danger mt-3 d-none" role="alert" id="songErrorAlert">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <h5><span class="highlight">Filter</span> by:</h5>
+        </div>
+        <div class="row justify-content-center" id="songFilters">
+            <div class="col col-auto mt-3">
+                <input type="text" class="form-control" id="artistTextField" placeholder="Artist">
+            </div>
+            <div class="col col-auto mt-3">
+                <input type="text" class="form-control" id="albumTextField" placeholder="Album">
+            </div>
+            <div class="col col-auto mt-3">
+                <input type="text" class="form-control" id="genreTextField" placeholder="Genre">
+            </div>
+            <div class="col col-auto mt-3">
+                <div class="input-group">
+                    <span class="input-group-text">From</span>
+                    <input type="number" min="1950" max="2023" class="form-control" id="startYear" placeholder="2004">
+                    <span class="input-group-text">to</span>
+                    <input type="number" min="1950" max="2023" class="form-control" id="endYear" placeholder="2020">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-none mt-5" id="songNavigator">
+            <div class="col-auto">
+                <div class="btn-group" role="group" aria-label="Song navigator">
+                    <button type="button" class="btn mainButton" id="prevButton" onclick="previousSongPage()"
+                        disabled>Prev</button>
+                    <button type="button" class="btn mainButton" id="nextButton" onclick="nextSongPage()">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="spinner-border loadingSpinner d-none" role="status">
+            </div>
+        </div>
+        <div class="row p-4" id="songContainer">
+            <div class="col p-4 d-flex justify-content-center songCard">
+                <div class="card d-none">
+                    <img src="" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title highlight"></h5>
+                        <p class="card-text"></p>
+                        <p class="card-text"></p>
+                        <p class="card-text"></p>
+                        <p class="card-text"></p>
+                    </div>
+                    <audio controls class="ratio p-1">
+                        <source src="" />
+                    </audio>
+                    <div class="card-footer">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle mainButton" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Add to playlist
+                            </button>
+                            <ul class="dropdown-menu songPlaylistAddDropdown">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="addedSongToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto"></strong>
+                    <button type="button" class="btn-close bg-secondary" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="./assets/scripts/login.js"></script>
+    <script src="./assets/scripts/utils.js"></script>
+    <script src="./assets/scripts/songs.js"></script>
+    <script src="./assets/scripts/nav.js"></script>
+    <script src="./assets/scripts/footer.js"></script>
+
+
+</body>
+
+</html>
