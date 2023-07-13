@@ -21,13 +21,6 @@ app.use(express.json()) // the app will put requests json in req.body
 const swaggerUi = require("swagger-ui-express")
 const swaggerDocument = require("./swagger-output.json")
 
-app.use((req, res, next) => { // Only for debugging
-    if (req.url != "/up") {
-        console.log(`\x1b[33m${req.ip}\x1b[0m: ${req.method} at \x1b[34m${req.url}\x1b[0m - \x1b[37m${JSON.stringify(req.body)}\x1b[0m`)
-    }
-    next()
-})
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument)) // returning the swagger at api-docs
 
 const mongoUri = `mongodb+srv://tiz314:${process.env.MONGOPWD}@tunemate.jbivpyu.mongodb.net/?retryWrites=true&w=majority`

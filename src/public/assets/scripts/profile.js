@@ -100,16 +100,6 @@ function userEdit() { // prefill edit box
     document.getElementById("editUsername").value = userData.username
 }
 
-/**
- * 
- * 
-function isJSONValid(req, res, next){
-    try{
-        JSON.parse(req.body)
-    }
-}
- */
-
 function updateProfile() {
     const newUser = {
         name: document.getElementById("editName").value,
