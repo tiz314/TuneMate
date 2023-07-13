@@ -10,7 +10,7 @@ TuneMate is an Express.js-based social media to search for songs, add them to pe
 A live demo is available [here](https://tunemate.tiz314.it)
 
 ## How to deploy
-It is possible to deploy TuneMate by using the `npm start` command (see `package.json`). 
+It is possible to deploy TuneMate by using the `npm start` command (see `package.json`) after installing the required modules using `npm i` in the `src` folder. 
 
 Alternatively, it is possible to deploy it by using Docker by using the following commands run in the `src` folder:
 ```
