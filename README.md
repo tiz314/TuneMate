@@ -13,7 +13,7 @@ A live demo is available [here](https://tunemate.tiz314.it)
 It is possible to deploy TuneMate by using the `npm start` command (see `package.json`) after installing the required modules using `npm i` in the `src` folder. 
 
 Alternatively, it is possible to deploy it by using Docker by using the following commands run in the `src` folder:
-```
+```sh
 docker build -t tunemate .
 docker run -d --name tunemate -p 8080:8080 tunemate --restart always
 ```
