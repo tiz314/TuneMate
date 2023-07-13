@@ -180,6 +180,14 @@ app.get("/login", (req, res) => { // return if the user is logged. Used for navb
 app.post("/login", mongoDBSanitize, async (req, res) => { // make the login process
     const loginAttempt = req.body
     if (loginAttempt.name != undefined && typeof loginAttempt.name == "string" && loginAttempt.password != undefined && typeof loginAttempt.password == "string") {
+        if (!loginAttempt.name.length) {
+            res.status(400).json({ message: "Missing username or email" })
+            return
+        }
+        if (!loginAttempt.password.length) {
+            res.status(400).json({ message: "Missing password" })
+            return
+        }
         loginAttempt.password = hash256(loginAttempt.password)
         const client = new mongoClient(mongoUri)
         let userList
