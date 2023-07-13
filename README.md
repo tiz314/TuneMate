@@ -7,7 +7,7 @@ TuneMate is an Express.js-based social media to search for songs, add them to pe
 
 ## Live demo
 
-A live demo is available ![here](https://tunemate.tiz314.it)
+A live demo is available [here](https://tunemate.tiz314.it)
 
 ## How to deploy
 It is possible to deploy TuneMate by using the `npm start` command (see `package.json`). 
